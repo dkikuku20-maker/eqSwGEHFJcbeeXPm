@@ -48,9 +48,7 @@ Repeated cross-validation tests the model across many different splits to better
 
 ## Files in this Repo
 - `notebooks/Customer_Satisfaction_Project.ipynb` — main notebook (EDA + modeling)
-- `data/ACME-HappinessSurvey2020.csv` — dataset (if allowed to upload)
-- `slides/Customer_Happiness_Project_Full_Summary.pptx` — project summary slides
-- `README.md` — this file
+
 
 ## How to Run (Google Colab)
 1. Open the notebook in Google Colab
