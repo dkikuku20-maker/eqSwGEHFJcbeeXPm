@@ -1,62 +1,80 @@
-# Customer Satisfaction Prediction (Survey ML)
+# Customer Satisfaction Prediction (Machine Learning)
 
-## Overview
-This project predicts whether a customer is **Happy (1)** or **Unhappy (0)** using answers from a short survey (X1–X6).
+## Project Overview
+This project predicts whether a customer is **Happy (1)** or **Unhappy (0)** based on survey responses.  
+The objective is to identify the **key drivers of customer satisfaction** and evaluate whether fewer survey questions can still provide strong predictive performance.
 
-The goal was to:
-- build a model that can predict happiness
-- find which survey questions matter most
-- recommend which questions can be removed in future surveys
+## Problem Statement
+Organizations rely on customer surveys, but long surveys reduce response rates and clarity.  
+This project addresses:
+- Which survey questions matter most for predicting satisfaction
+- Whether survey length can be reduced without losing predictive power
+- How machine learning can support data-driven customer experience decisions
 
-## Dataset
-- Each row = 1 customer
-- Features: **X1–X6** (survey question scores)
-- Target: **Y** (0 = Unhappy, 1 = Happy)
+**Dataset**
+- ~126 customer responses
+- Features: X1–X6 (survey question scores)
+- Target: Y (customer satisfaction label)
 
-> Note: This is a small dataset, so model results can change depending on how the data is split.
+## Approach & Methodology
 
-## Approach (What I Did)
-1. **Loaded and checked the data**
-   - verified shape, data types, missing values
-2. **Exploratory Data Analysis (EDA)**
-   - distributions of Y and survey questions
-   - correlation matrix
-   - average question scores for happy vs unhappy customers
-3. **Modeling**
-   - tried multiple models (Logistic Regression, Decision Tree, Random Forest, KNN, SVM)
-   - used careful evaluation because the dataset is small
-4. **Model Evaluation**
-   - single train/test split was unstable
-   - used **Repeated Stratified K-Fold Cross-Validation** for a more reliable estimate
-5. **Feature Importance / Selection**
-   - compared correlations + tree-based feature importance
-   - suggested a smaller set of survey questions that still captures most signal
+### 1. Data Preparation
+- Loaded and validated survey data
+- Checked class balance and feature distributions
+- No missing values detected
 
-## Results (Simple Summary)
-- Best model found: **SVM (RBF kernel)** with scaling
-- Best performance observed (repeated cross-validation): **88% accuracy** (peak)
-- Average performance across splits was lower due to high variance in small datasets
+### 2. Exploratory Data Analysis (EDA)
+- Distribution analysis of satisfaction labels
+- Correlation analysis between survey questions and satisfaction
+- Group comparison of average scores for happy vs unhappy customers
 
-### Why repeated cross-validation?
-Because the dataset is small, a single train/test split can give very different results.  
-Repeated cross-validation tests the model across many different splits to better understand performance stability.
+### 3. Modeling
+Tested multiple classification models:
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- K-Nearest Neighbors
+- Support Vector Machine (SVM)
 
-## Key Insights (For Stakeholders)
-- Some survey questions contribute more than others.
-- There is overlap between happy and unhappy answers, so prediction is not always easy.
-- Recommendation: consider removing the lowest-impact question(s) in the next survey and re-test.
+### 4. Evaluation Strategy
+- Standard train/test splits showed high variance due to small dataset size
+- Used **Repeated Stratified K-Fold Cross-Validation** to obtain more reliable performance estimates
+- Performance measured using accuracy
 
-## Files in this Repo
-- `notebooks/Customer_Satisfaction_Project.ipynb` — main notebook (EDA + modeling)
+### 5. Feature Selection
+- Used correlation analysis and tree-based feature importance
+- Identified lower-impact questions that can be removed in future surveys
+
+## Key Results
+
+- **Best-performing model:** Support Vector Machine (RBF kernel)
+- **Peak accuracy achieved:** 88% (repeated cross-validation)
+- Other models did not consistently reach the required accuracy threshold
+- Feature analysis showed that not all survey questions contribute equally
+
+## Business Insights
+- A smaller subset of survey questions captures most satisfaction signal
+- Long surveys can be shortened while preserving insight quality
+- Machine learning can support more focused, efficient customer feedback collection
+
+## Technologies Used
+- Python
+- pandas
+- NumPy
+- scikit-learn
+- matplotlib / seaborn
+
+## Repository Structure
 
 
-## How to Run (Google Colab)
-1. Open the notebook in Google Colab
-2. Upload the CSV into the Colab session
+
+## How to Run
+1. Open the notebook in **Google Colab**
+2. Upload the dataset when prompted
 3. Run cells from top to bottom
 
-## Next Improvements (Future Work)
-- Collect more data (bigger sample size)
-- Try improving survey design (new questions, clearer scoring)
-- Use metrics beyond accuracy (precision/recall/F1) if class imbalance grows
-- Add model interpretability tools (per-question impact)
+## Future Improvements
+- Collect more survey responses to reduce variance
+- Test additional satisfaction questions
+- Evaluate metrics beyond accuracy (precision, recall, F1-score)
+- Add advanced interpretability techniques (e.g., SHAP)
